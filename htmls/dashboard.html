@@ -694,20 +694,6 @@
         // Update profile information
         document.getElementById('fullName').textContent = userData.name || "User";
         
-        // Update profile picture if available
-        if (userData.photoURL) {
-          try {
-            const storageRef = ref(storage, userData.photoURL);
-            const downloadURL = await getDownloadURL(storageRef);
-            document.getElementById('userAvatar').src = downloadURL;
-          } catch (error) {
-            console.error("Error loading profile photo:", error);
-            document.getElementById('userAvatar').src = "https://i.pravatar.cc/300";
-          }
-        } else {
-          document.getElementById('userAvatar').src = "https://i.pravatar.cc/300";
-        }
-        
         // Update account information
         document.getElementById('accountType').textContent = `${userData.accountType?.toUpperCase() || 'CHECKING'} ACCOUNT`;
         document.getElementById('balance').textContent = formatCurrency(userData.accountBalance || 0);

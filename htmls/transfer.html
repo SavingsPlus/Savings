@@ -1,799 +1,874 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SavingsPlus - Transfer Money</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #2563eb;
-      --primary-dark: #1d4ed8;
-      --primary-light: #dbeafe;
-      --secondary: #10b981;
-      --error: #dc2626;
-      --success: #16a34a;
-      --warning: #f59e0b;
-      --gray-50: #f9fafb;
-      --gray-100: #f3f4f6;
-      --gray-200: #e5e7eb;
-      --gray-300: #d1d5db;
-      --gray-400: #9ca3af;
-      --gray-500: #6b7280;
-      --gray-600: #4b5563;
-      --gray-700: #374151;
-      --gray-800: #1f2937;
-      --white: #ffffff;
-      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-      --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: var(--gray-50);
-      color: var(--gray-800);
-      line-height: 1.5;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Layout */
-    .container {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1rem;
-    }
-
-    .flex {
-      display: flex;
-    }
-
-    .flex-col {
-      flex-direction: column;
-    }
-
-    .items-center {
-      align-items: center;
-    }
-
-    .justify-between {
-      justify-content: space-between;
-    }
-
-    .gap-3 {
-      gap: 0.75rem;
-    }
-
-    .gap-4 {
-      gap: 1rem;
-    }
-
-    .gap-6 {
-      gap: 1.5rem;
-    }
-
-    .py-3 {
-      padding-top: 0.75rem;
-      padding-bottom: 0.75rem;
-    }
-
-    .py-4 {
-      padding-top: 1rem;
-      padding-bottom: 1rem;
-    }
-
-    .py-6 {
-      padding-top: 1.5rem;
-      padding-bottom: 1.5rem;
-    }
-
-    .px-4 {
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
-
-    .px-6 {
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-    }
-
-    .mb-4 {
-      margin-bottom: 1rem;
-    }
-
-    .mb-6 {
-      margin-bottom: 1.5rem;
-    }
-
-    .mt-2 {
-      margin-top: 0.5rem;
-    }
-
-    .mt-4 {
-      margin-top: 1rem;
-    }
-
-    .mt-auto {
-      margin-top: auto;
-    }
-
-    /* Typography */
-    .text-sm {
-      font-size: 0.875rem;
-    }
-
-    .text-base {
-      font-size: 1rem;
-    }
-
-    .text-lg {
-      font-size: 1.125rem;
-    }
-
-    .text-xl {
-      font-size: 1.25rem;
-    }
-
-    .text-2xl {
-      font-size: 1.5rem;
-    }
-
-    .font-bold {
-      font-weight: 700;
-    }
-
-    .font-semibold {
-      font-weight: 600;
-    }
-
-    .font-medium {
-      font-weight: 500;
-    }
-
-    .text-center {
-      text-align: center;
-    }
-
-    .text-gray-500 {
-      color: var(--gray-500);
-    }
-
-    .text-gray-600 {
-      color: var(--gray-600);
-    }
-
-    .text-gray-700 {
-      color: var(--gray-700);
-    }
-
-    .text-gray-800 {
-      color: var(--gray-800);
-    }
-
-    .text-white {
-      color: var(--white);
-    }
-
-    .text-blue-600 {
-      color: var(--primary);
-    }
-
-    .text-green-600 {
-      color: var(--success);
-    }
-
-    .text-red-600 {
-      color: var(--error);
-    }
-
-    /* Components */
-    .navbar {
-      background-color: var(--primary-dark);
-      color: var(--white);
-      padding: 1rem 0;
-    }
-
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 700;
-      text-decoration: none;
-      color: var(--white);
-    }
-
-    .avatar {
-      width: 2rem;
-      height: 2rem;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    .dropdown {
-      position: relative;
-    }
-
-    .dropdown-menu {
-      display: none;
-      position: absolute;
-      right: 0;
-      top: 100%;
-      background-color: var(--white);
-      border-radius: 0.5rem;
-      box-shadow: var(--shadow-lg);
-      min-width: 12rem;
-      z-index: 50;
-      margin-top: 0.5rem;
-    }
-
-    .dropdown:hover .dropdown-menu {
-      display: block;
-    }
-
-    .dropdown-item {
-      display: block;
-      padding: 0.5rem 1rem;
-      color: var(--gray-700);
-      text-decoration: none;
-      font-size: 0.875rem;
-    }
-
-    .dropdown-item:hover {
-      background-color: var(--gray-100);
-    }
-
-    .divider {
-      height: 1px;
-      background-color: var(--gray-200);
-      margin: 0.25rem 0;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.5rem;
-      font-weight: 600;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: all 0.2s;
-      border: none;
-    }
-
-    .btn-primary {
-      background-color: var(--primary);
-      color: var(--white);
-    }
-
-    .btn-primary:hover {
-      background-color: var(--primary-dark);
-    }
-
-    .btn-danger {
-      background-color: var(--error);
-      color: var(--white);
-    }
-
-    .btn-danger:hover {
-      background-color: #b91c1c;
-    }
-
-    .btn-outline {
-      background-color: var(--white);
-      border: 1px solid var(--gray-300);
-      color: var(--gray-700);
-    }
-
-    .btn-outline:hover {
-      background-color: var(--gray-50);
-    }
-
-    .tabs {
-      display: flex;
-      border-bottom: 1px solid var(--gray-200);
-      background-color: var(--white);
-    }
-
-    .tab {
-      padding: 1rem;
-      color: var(--gray-600);
-      text-decoration: none;
-      font-weight: 500;
-      position: relative;
-    }
-
-    .tab:hover {
-      color: var(--primary);
-    }
-
-    .tab.active {
-      color: var(--primary);
-      font-weight: 600;
-    }
-
-    .tab.active::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background-color: var(--primary);
-    }
-
-    .card {
-      background-color: var(--white);
-      border-radius: 0.75rem;
-      box-shadow: var(--shadow-md);
-      overflow: hidden;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .card-header {
-      padding: 1.5rem;
-      border-bottom: 1px solid var(--gray-200);
-    }
-
-    .card-body {
-      padding: 1.5rem;
-    }
-
-    .form-group {
-      margin-bottom: 1.5rem;
-    }
-
-    .form-label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: var(--gray-700);
-    }
-
-    .form-input {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      border: 1px solid var(--gray-300);
-      border-radius: 0.5rem;
-      font-size: 1rem;
-      transition: all 0.2s;
-    }
-
-    .form-input:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px var(--primary-light);
-    }
-
-    .form-textarea {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      border: 1px solid var(--gray-300);
-      border-radius: 0.5rem;
-      font-size: 1rem;
-      min-height: 100px;
-      resize: vertical;
-      transition: all 0.2s;
-    }
-
-    .form-textarea:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px var(--primary-light);
-    }
-
-    .error-message {
-      color: var(--error);
-      font-size: 0.875rem;
-      margin-top: 0.25rem;
-      display: none;
-    }
-
-    .footer {
-      background-color: var(--white);
-      border-top: 1px solid var(--gray-200);
-      padding: 1rem 0;
-      margin-top: auto;
-    }
-
-    .footer-link {
-      color: var(--gray-600);
-      text-decoration: none;
-      margin: 0 0.5rem;
-    }
-
-    .footer-link:hover {
-      color: var(--primary);
-      text-decoration: underline;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SavingsPlus - Transfer Money</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #2563eb;
+        --primary-dark: #1d4ed8;
+        --primary-light: #dbeafe;
+        --secondary: #10b981;
+        --error: #dc2626;
+        --success: #16a34a;
+        --warning: #f59e0b;
+        --gray-50: #f9fafb;
+        --gray-100: #f3f4f6;
+        --gray-200: #e5e7eb;
+        --gray-300: #d1d5db;
+        --gray-400: #9ca3af;
+        --gray-500: #6b7280;
+        --gray-600: #4b5563;
+        --gray-700: #374151;
+        --gray-800: #1f2937;
+        --white: #ffffff;
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+          0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--gray-50);
+        color: var(--gray-800);
+        line-height: 1.5;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Layout */
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
+      .flex {
+        display: flex;
+      }
+
+      .flex-col {
+        flex-direction: column;
+      }
+
+      .items-center {
+        align-items: center;
+      }
+
+      .justify-between {
+        justify-content: space-between;
+      }
+
+      .gap-3 {
+        gap: 0.75rem;
+      }
+
+      .gap-4 {
+        gap: 1rem;
+      }
+
+      .gap-6 {
+        gap: 1.5rem;
+      }
+
+      .py-3 {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+      }
+
+      .py-4 {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+      }
+
+      .py-6 {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+      }
+
+      .px-4 {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+
+      .px-6 {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+
+      .mb-4 {
+        margin-bottom: 1rem;
+      }
+
+      .mb-6 {
+        margin-bottom: 1.5rem;
+      }
+
+      .mt-2 {
+        margin-top: 0.5rem;
+      }
+
+      .mt-4 {
+        margin-top: 1rem;
+      }
+
+      .mt-auto {
+        margin-top: auto;
+      }
+
+      /* Typography */
+      .text-sm {
+        font-size: 0.875rem;
+      }
+
+      .text-base {
+        font-size: 1rem;
+      }
+
+      .text-lg {
+        font-size: 1.125rem;
+      }
+
+      .text-xl {
+        font-size: 1.25rem;
+      }
+
+      .text-2xl {
+        font-size: 1.5rem;
+      }
+
+      .font-bold {
+        font-weight: 700;
+      }
+
+      .font-semibold {
+        font-weight: 600;
+      }
+
+      .font-medium {
+        font-weight: 500;
+      }
+
+      .text-center {
+        text-align: center;
+      }
+
+      .text-gray-500 {
+        color: var(--gray-500);
+      }
+
+      .text-gray-600 {
+        color: var(--gray-600);
+      }
+
+      .text-gray-700 {
+        color: var(--gray-700);
+      }
+
+      .text-gray-800 {
+        color: var(--gray-800);
+      }
+
+      .text-white {
+        color: var(--white);
+      }
+
+      .text-blue-600 {
+        color: var(--primary);
+      }
+
+      .text-green-600 {
+        color: var(--success);
+      }
+
+      .text-red-600 {
+        color: var(--error);
+      }
+
+      /* Components */
+      .navbar {
+        background-color: var(--primary-dark);
+        color: var(--white);
+        padding: 1rem 0;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        text-decoration: none;
+        color: var(--white);
+      }
+
+      .avatar {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .dropdown {
+        position: relative;
+      }
+
+      .dropdown-menu {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 100%;
+        background-color: var(--white);
+        border-radius: 0.5rem;
+        box-shadow: var(--shadow-lg);
+        min-width: 12rem;
+        z-index: 50;
+        margin-top: 0.5rem;
+      }
+
+      .dropdown:hover .dropdown-menu {
+        display: block;
+      }
+
+      .dropdown-item {
+        display: block;
+        padding: 0.5rem 1rem;
+        color: var(--gray-700);
+        text-decoration: none;
+        font-size: 0.875rem;
+      }
+
+      .dropdown-item:hover {
+        background-color: var(--gray-100);
+      }
+
+      .divider {
+        height: 1px;
+        background-color: var(--gray-200);
+        margin: 0.25rem 0;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.2s;
+        border: none;
+      }
+
+      .btn-primary {
+        background-color: var(--primary);
+        color: var(--white);
+      }
+
+      .btn-primary:hover {
+        background-color: var(--primary-dark);
+      }
+
+      .btn-danger {
+        background-color: var(--error);
+        color: var(--white);
+      }
+
+      .btn-danger:hover {
+        background-color: #b91c1c;
+      }
+
+      .btn-outline {
+        background-color: var(--white);
+        border: 1px solid var(--gray-300);
+        color: var(--gray-700);
+      }
+
+      .btn-outline:hover {
+        background-color: var(--gray-50);
+      }
+
       .tabs {
-        overflow-x: auto;
-        padding-bottom: 0.5rem;
+        display: flex;
+        border-bottom: 1px solid var(--gray-200);
+        background-color: var(--white);
       }
-      
+
       .tab {
-        white-space: nowrap;
+        padding: 1rem;
+        color: var(--gray-600);
+        text-decoration: none;
+        font-weight: 500;
+        position: relative;
       }
-    }
-  </style>
-</head>
-<body>
-  <div class="min-h-screen flex flex-col">
-    <!-- Navbar -->
-    <header class="navbar">
-      <div class="container flex justify-between items-center">
-        <a href="#" class="logo">SavingsPlus</a>
-        <div class="flex items-center gap-3">
-          <span id="fullName" class="font-medium">Loading...</span>
-          <div class="dropdown">
-           
-            <div id="dropdownMenu" class="dropdown-menu">
-              <a href="#" class="dropdown-item">Profile</a>
-              <a href="#" class="dropdown-item">Settings</a>
-              <a href="#" class="dropdown-item">News</a>
-              <div class="divider"></div>
-              <a href="#" id="dropdownSignOut" class="dropdown-item">Sign out</a>
+
+      .tab:hover {
+        color: var(--primary);
+      }
+
+      .tab.active {
+        color: var(--primary);
+        font-weight: 600;
+      }
+
+      .tab.active::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background-color: var(--primary);
+      }
+
+      .card {
+        background-color: var(--white);
+        border-radius: 0.75rem;
+        box-shadow: var(--shadow-md);
+        overflow: hidden;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .card-header {
+        padding: 1.5rem;
+        border-bottom: 1px solid var(--gray-200);
+      }
+
+      .card-body {
+        padding: 1.5rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--gray-700);
+      }
+
+      .form-input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid var(--gray-300);
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        transition: all 0.2s;
+      }
+
+      .form-input:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px var(--primary-light);
+      }
+
+      .form-textarea {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid var(--gray-300);
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        min-height: 100px;
+        resize: vertical;
+        transition: all 0.2s;
+      }
+
+      .form-textarea:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px var(--primary-light);
+      }
+
+      .error-message {
+        color: var(--error);
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+        display: none;
+      }
+
+      .footer {
+        background-color: var(--white);
+        border-top: 1px solid var(--gray-200);
+        padding: 1rem 0;
+        margin-top: auto;
+      }
+
+      .footer-link {
+        color: var(--gray-600);
+        text-decoration: none;
+        margin: 0 0.5rem;
+      }
+
+      .footer-link:hover {
+        color: var(--primary);
+        text-decoration: underline;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .tabs {
+          overflow-x: auto;
+          padding-bottom: 0.5rem;
+        }
+
+        .tab {
+          white-space: nowrap;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="min-h-screen flex flex-col">
+      <!-- Navbar -->
+      <header class="navbar">
+        <div class="container flex justify-between items-center">
+          <a href="#" class="logo">SavingsPlus</a>
+          <div class="flex items-center gap-3">
+            <span id="fullName" class="font-medium">Loading...</span>
+            <div class="dropdown">
+              <div id="dropdownMenu" class="dropdown-menu">
+                <a href="#" class="dropdown-item">Profile</a>
+                <a href="#" class="dropdown-item">Settings</a>
+                <a href="#" class="dropdown-item">News</a>
+                <div class="divider"></div>
+                <a href="#" id="dropdownSignOut" class="dropdown-item"
+                  >Sign out</a
+                >
+              </div>
             </div>
+            <button id="signOutBtn" class="btn btn-danger">Sign Out</button>
           </div>
-          <button id="signOutBtn" class="btn btn-danger">Sign Out</button>
         </div>
-      </div>
-    </header>
+      </header>
 
-    <!-- Tabs -->
-    <nav class="tabs">
-      <div class="container flex gap-6">
-        <a id="dashboard" href="#" class="tab">Dashboard</a>
-        <a href="#" class="tab active">Transfers</a>
-        <a href="#" class="tab">Payments</a>
-        <a href="#" class="tab">Accounts</a>
-      </div>
-    </nav>
-
-    <!-- Main Content -->
-    <main class="container py-6 flex-1">
-      <div class="card">
-        <div class="card-header">
-          <h2 class="text-xl font-semibold">Transfer Money</h2>
+      <!-- Tabs -->
+      <nav class="tabs">
+        <div class="container flex gap-6">
+          <a id="dashboard" href="#" class="tab">Dashboard</a>
+          <a href="#" class="tab active">Transfers</a>
+          <a href="#" class="tab">Payments</a>
+          <a href="#" class="tab">Accounts</a>
         </div>
-        <div class="card-body">
-          <form id="transferForm" class="space-y-4">
-            <div class="form-group">
-              <label for="recipientAccount" class="form-label">Recipient Account Number</label>
-              <input type="text" id="recipientAccount" name="recipientAccount" required class="form-input">
-              <div class="error-message" id="recipient-error"></div>
-            </div>
+      </nav>
 
-            <div class="form-group">
-              <label for="amount" class="form-label">Amount (USD)</label>
-              <input type="number" id="amount" name="amount" required min="0.01" step="0.01" class="form-input">
-              <div class="error-message" id="amount-error"></div>
-            </div>
+      <!-- Main Content -->
+      <main class="container py-6 flex-1">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="text-xl font-semibold">Transfer Money</h2>
+          </div>
+          <div class="card-body">
+            <form id="transferForm" class="space-y-4">
+              <div class="form-group">
+                <label for="recipientAccount" class="form-label"
+                  >Recipient Account Number</label
+                >
+                <input
+                  type="text"
+                  id="recipientAccount"
+                  name="recipientAccount"
+                  required
+                  class="form-input"
+                />
+                <div class="error-message" id="recipient-error"></div>
+              </div>
 
-            <div class="form-group">
-              <label for="note" class="form-label">Note (Optional)</label>
-              <textarea id="note" name="note" rows="3" class="form-textarea"></textarea>
-            </div>
+              <div class="form-group">
+                <label for="amount" class="form-label">Amount (USD)</label>
+                <input
+                  type="number"
+                  id="amount"
+                  name="amount"
+                  required
+                  min="0.01"
+                  step="0.01"
+                  class="form-input"
+                />
+                <div class="error-message" id="amount-error"></div>
+              </div>
 
-            <button type="submit" id="transferBtn" class="btn btn-primary w-full">
-              Send Transfer
-            </button>
-            <button type="button" id="loadingBtn" class="btn btn-primary w-full" style="display: none;">
-              Processing Transfer...
-            </button>
-          </form>
+              <div class="form-group">
+                <label for="note" class="form-label">Note (Optional)</label>
+                <textarea
+                  id="note"
+                  name="note"
+                  rows="3"
+                  class="form-textarea"
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                id="transferBtn"
+                class="btn btn-primary w-full"
+              >
+                Send Transfer
+              </button>
+              <button
+                type="button"
+                id="loadingBtn"
+                class="btn btn-primary w-full"
+                style="display: none"
+              >
+                Processing Transfer...
+              </button>
+            </form>
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container flex flex-col md:flex-row justify-between items-center text-sm text-gray-600">
-        <div class="mb-2 md:mb-0">
-          <a href="#" class="footer-link">Home</a>
-          <a href="#" class="footer-link">Support</a>
-          <a href="#" class="footer-link">Privacy</a>
+      <!-- Footer -->
+      <footer class="footer">
+        <div
+          class="container flex flex-col md:flex-row justify-between items-center text-sm text-gray-600"
+        >
+          <div class="mb-2 md:mb-0">
+            <a href="#" class="footer-link">Home</a>
+            <a href="#" class="footer-link">Support</a>
+            <a href="#" class="footer-link">Privacy</a>
+          </div>
+          <div>&copy; <span id="currentYear">2025</span> SavingsPlus Inc.</div>
         </div>
-        <div>&copy; <span id="currentYear">2025</span> SavingsPlus Inc.</div>
-      </div>
-    </footer>
-  </div>
+      </footer>
+    </div>
 
-  <script type="module">
-    // Firebase imports
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-    import { 
-      getAuth, 
-      onAuthStateChanged, 
-      signOut 
-    } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-    import { 
-      getFirestore, 
-      doc, 
-      getDoc, 
-      collection,
-      query,
-      where,
-      getDocs,
-      writeBatch,
-      increment,
-      Timestamp
-    } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
-    import { 
-      getStorage,
-      ref,
-      getDownloadURL
-    } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js";
+    <script type="module">
+      // Firebase imports
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+      import {
+        getAuth,
+        onAuthStateChanged,
+        signOut,
+      } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+      import {
+        getFirestore,
+        doc,
+        getDoc,
+        collection,
+        query,
+        where,
+        getDocs,
+        writeBatch,
+        increment,
+        Timestamp,
+      } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+      import {
+        getStorage,
+        ref,
+        getDownloadURL,
+      } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js";
 
-    // Firebase configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyAk0NaEjSxHgR2OJ8WUoLFX4ubDzR1bae8",
-      authDomain: "bank-8dfaa.firebaseapp.com",
-      projectId: "bank-8dfaa",
-      storageBucket: "bank-8dfaa.firebasestorage.app",
-      messagingSenderId: "975346232295",
-      appId: "1:975346232295:web:f13201683ae4b23a846b42"
-    };
+      // Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyAk0NaEjSxHgR2OJ8WUoLFX4ubDzR1bae8",
+        authDomain: "bank-8dfaa.firebaseapp.com",
+        projectId: "bank-8dfaa",
+        storageBucket: "bank-8dfaa.firebasestorage.app",
+        messagingSenderId: "975346232295",
+        appId: "1:975346232295:web:f13201683ae4b23a846b42",
+      };
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-    const storage = getStorage(app);
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+      const storage = getStorage(app);
 
-    // Get user ID from URL
-    const searchParams = new URLSearchParams(window.location.search);
-    const userId = searchParams.get('id');
+      // Get user ID from URL
+      const searchParams = new URLSearchParams(window.location.search);
+      const userId = searchParams.get("id");
 
-    if (!userId) {
-      window.location.href = './login.html';
-    }
-
-    // Set current year in footer
-    document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-    // Format currency
-    function formatCurrency(amount) {
-      return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        minimumFractionDigits: 2
-      }).format(amount);
-    }
-
-    // Show error message
-    function showError(fieldId, message) {
-      const errorElement = document.getElementById(`${fieldId}-error`);
-      if (errorElement) {
-        errorElement.textContent = message;
-        errorElement.style.display = 'block';
-        document.getElementById(fieldId).style.borderColor = 'var(--error)';
+      if (!userId) {
+        window.location.href = "./login.html";
       }
-    }
 
-    // Clear error message
-    function clearError(fieldId) {
-      const errorElement = document.getElementById(`${fieldId}-error`);
-      if (errorElement) {
-        errorElement.style.display = 'none';
-        document.getElementById(fieldId).style.borderColor = 'var(--gray-300)';
+      // Set current year in footer
+      document.getElementById("currentYear").textContent =
+        new Date().getFullYear();
+
+      // Format currency
+      function formatCurrency(amount) {
+        return new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+          minimumFractionDigits: 2,
+        }).format(amount);
       }
-    }
 
-    // Handle sign out
-    async function handleSignOut() {
-      try {
-        await signOut(auth);
-        window.location.href = './login.html';
-      } catch (error) {
-        console.error("Sign out error:", error);
-        alert("Error signing out. Please try again.");
+      // Show error message
+      function showError(fieldId, message) {
+        const errorElement = document.getElementById(`${fieldId}-error`);
+        if (errorElement) {
+          errorElement.textContent = message;
+          errorElement.style.display = "block";
+          document.getElementById(fieldId).style.borderColor = "var(--error)";
+        }
       }
-    }
 
-    // Process transfer form submission
-    async function handleTransfer(event) {
-      event.preventDefault();
-      
-      // Clear previous errors
-      clearError('recipientAccount');
-      clearError('amount');
-      
-      // Show loading state
-      document.getElementById('transferBtn').style.display = 'none';
-      document.getElementById('loadingBtn').style.display = 'flex';
-      
-      const recipientAccount = document.getElementById('recipientAccount').value.trim();
-      const amount = parseFloat(document.getElementById('amount').value);
-      const note = document.getElementById('note').value.trim();
-
-      try {
-        // Validate inputs
-        if (!recipientAccount) {
-          showError('recipientAccount', 'Please enter a recipient account number');
-          throw new Error("Recipient account required");
+      // Clear error message
+      function clearError(fieldId) {
+        const errorElement = document.getElementById(`${fieldId}-error`);
+        if (errorElement) {
+          errorElement.style.display = "none";
+          document.getElementById(fieldId).style.borderColor =
+            "var(--gray-300)";
         }
-
-        if (isNaN(amount) || amount <= 0) {
-          showError('amount', 'Please enter a valid amount greater than 0');
-          throw new Error("Invalid amount");
-        }
-
-        // Check if recipient exists
-        const q = query(collection(db, "bankUsers"), where("accountNumber", "==", recipientAccount));
-        const recipientSnapshot = await getDocs(q);
-
-        if (recipientSnapshot.empty) {
-          showError('recipientAccount', 'Recipient account not found');
-          throw new Error("Recipient account not found");
-        }
-
-        const recipientDoc = recipientSnapshot.docs[0];
-        if (recipientDoc.id === userId) {
-          showError('recipientAccount', 'Cannot transfer to your own account');
-          throw new Error("Cannot transfer to your own account");
-        }
-
-        // Get sender data
-        const senderDocRef = doc(db, "bankUsers", userId);
-        const senderDoc = await getDoc(senderDocRef);
-        const senderData = senderDoc.data();
-
-        // Check balance
-        if (senderData.accountBalance < amount) {
-          showError('amount', `Insufficient funds. Your balance is ${formatCurrency(senderData.accountBalance)}`);
-          throw new Error(`Insufficient funds. Your balance is ${formatCurrency(senderData.accountBalance)}`);
-        }
-
-        // Use batch write for atomic operation
-        const batch = writeBatch(db);
-
-        // Update sender balance
-        batch.update(senderDocRef, {
-          accountBalance: increment(-amount)
-        });
-
-        // Update recipient balance
-        batch.update(recipientDoc.ref, {
-          accountBalance: increment(amount)
-        });
-
-        // Create transaction records in both users' subcollections
-        const senderTransactionsRef = collection(db, "bankUsers", userId, "transactions");
-        const recipientTransactionsRef = collection(db, "bankUsers", recipientDoc.id, "transactions");
-
-        // Sender's transaction record (debit)
-        batch.set(doc(senderTransactionsRef), {
-          amount: amount,
-          description: note || `Transfer to ${recipientDoc.data().accountNumber}`,
-          type: "debit",
-          account: senderData.accountNumber,
-          timestamp: Timestamp.now()
-        });
-
-        // Recipient's transaction record (credit)
-        batch.set(doc(recipientTransactionsRef), {
-          amount: amount,
-          description: note || `Transfer from ${senderData.accountNumber}`,
-          type: "credit",
-          account: recipientDoc.data().accountNumber,
-          timestamp: Timestamp.now()
-        });
-
-        // Commit the batch
-        await batch.commit();
-
-        // Success
-        alert(`Successfully transferred ${formatCurrency(amount)} to account ${recipientAccount}`);
-        document.getElementById('transferForm').reset();
-        
-      } catch (error) {
-        console.error("Transfer error:", error);
-        if (!error.message.includes("Recipient") && !error.message.includes("amount")) {
-          alert(`Transfer failed: ${error.message}`);
-        }
-      } finally {
-        document.getElementById('transferBtn').style.display = 'flex';
-        document.getElementById('loadingBtn').style.display = 'none';
       }
-    }
 
-    // Load user data
-    async function loadUserData() {
-      try {
-        const userDocRef = doc(db, "bankUsers", userId);
-        const userDoc = await getDoc(userDocRef);
+      // Handle sign out
+      async function handleSignOut() {
+        try {
+          await signOut(auth);
+          window.location.href = "./login.html";
+        } catch (error) {
+          console.error("Sign out error:", error);
+          alert("Error signing out. Please try again.");
+        }
+      }
 
-        if (userDoc.exists()) {
-          const userData = userDoc.data();
-          
-          // Set user name
-          document.getElementById('fullName').textContent = userData.name || "User";
-          
-          // Set profile picture if available
-          if (userData.photoURL) {
-            try {
-              const storageRef = ref(storage, userData.photoURL);
-              const downloadURL = await getDownloadURL(storageRef);
-              document.getElementById('userAvatar').src = downloadURL;
-            } catch (error) {
-              console.error("Error loading profile photo:", error);
-              document.getElementById('userAvatar').src = "https://i.pravatar.cc/300";
-            }
-          } else {
-            document.getElementById('userAvatar').src = "https://i.pravatar.cc/300";
+      // Process transfer form submission
+      async function handleTransfer(event) {
+        event.preventDefault();
+
+        // Clear previous errors
+        clearError("recipientAccount");
+        clearError("amount");
+
+        // Show loading state
+        document.getElementById("transferBtn").style.display = "none";
+        document.getElementById("loadingBtn").style.display = "flex";
+
+        const recipientAccount = document
+          .getElementById("recipientAccount")
+          .value.trim();
+        const amount = parseFloat(document.getElementById("amount").value);
+        const note = document.getElementById("note").value.trim();
+
+        try {
+          // Validate inputs
+          if (!recipientAccount) {
+            showError(
+              "recipientAccount",
+              "Please enter a recipient account number"
+            );
+            throw new Error("Recipient account required");
           }
+
+          if (isNaN(amount) || amount <= 0) {
+            showError("amount", "Please enter a valid amount greater than 0");
+            throw new Error("Invalid amount");
+          }
+
+          // Check if recipient exists
+          const q = query(
+            collection(db, "bankUsers"),
+            where("accountNumber", "==", recipientAccount)
+          );
+          const recipientSnapshot = await getDocs(q);
+
+          if (recipientSnapshot.empty) {
+            showError("recipientAccount", "Recipient account not found");
+            throw new Error("Recipient account not found");
+          }
+
+          const recipientDoc = recipientSnapshot.docs[0];
+          if (recipientDoc.id === userId) {
+            showError(
+              "recipientAccount",
+              "Cannot transfer to your own account"
+            );
+            throw new Error("Cannot transfer to your own account");
+          }
+
+          // Get sender data
+          const senderDocRef = doc(db, "bankUsers", userId);
+          const senderDoc = await getDoc(senderDocRef);
+          const senderData = senderDoc.data();
+
+          // Check balance
+          if (senderData.accountBalance < amount) {
+            showError(
+              "amount",
+              `Insufficient funds. Your balance is ${formatCurrency(
+                senderData.accountBalance
+              )}`
+            );
+            throw new Error(
+              `Insufficient funds. Your balance is ${formatCurrency(
+                senderData.accountBalance
+              )}`
+            );
+          }
+
+          // Use batch write for atomic operation
+          const batch = writeBatch(db);
+
+          // Update sender balance
+          batch.update(senderDocRef, {
+            accountBalance: increment(-amount),
+          });
+
+          // Update recipient balance
+          batch.update(recipientDoc.ref, {
+            accountBalance: increment(amount),
+          });
+
+          // Create transaction records in both users' subcollections
+          const senderTransactionsRef = collection(
+            db,
+            "bankUsers",
+            userId,
+            "transactions"
+          );
+          const recipientTransactionsRef = collection(
+            db,
+            "bankUsers",
+            recipientDoc.id,
+            "transactions"
+          );
+
+          // Sender's transaction record (debit)
+          batch.set(doc(senderTransactionsRef), {
+            amount: amount,
+            description:
+              note || `Transfer to ${recipientDoc.data().accountNumber}`,
+            type: "debit",
+            account: senderData.accountNumber,
+            timestamp: Timestamp.now(),
+          });
+
+          // Recipient's transaction record (credit)
+          batch.set(doc(recipientTransactionsRef), {
+            amount: amount,
+            description: note || `Transfer from ${senderData.accountNumber}`,
+            type: "credit",
+            account: recipientDoc.data().accountNumber,
+            timestamp: Timestamp.now(),
+          });
+
+          // Commit the batch
+          await batch.commit();
+
+          // Success
+          alert(
+            `Successfully transferred ${formatCurrency(
+              amount
+            )} to account ${recipientAccount}`
+          );
+          document.getElementById("transferForm").reset();
+        } catch (error) {
+          console.error("Transfer error:", error);
+          if (
+            !error.message.includes("Recipient") &&
+            !error.message.includes("amount")
+          ) {
+            alert(`Transfer failed: ${error.message}`);
+          }
+        } finally {
+          document.getElementById("transferBtn").style.display = "flex";
+          document.getElementById("loadingBtn").style.display = "none";
         }
-      } catch (error) {
-        console.error("Error loading user data:", error);
       }
-    }
 
-    // Initialize UI
-    function initUI() {
-      // Dropdown menu
-      const dropdownButton = document.getElementById('dropdownButton');
-      const dropdownMenu = document.getElementById('dropdownMenu');
-      
-      dropdownButton.addEventListener('click', (e) => {
-        e.stopPropagation();
-        dropdownMenu.classList.toggle('hidden');
-      });
+      // Load user data
+      async function loadUserData() {
+        try {
+          const userDocRef = doc(db, "bankUsers", userId);
+          const userDoc = await getDoc(userDocRef);
 
-      document.addEventListener('click', () => {
-        dropdownMenu.classList.add('hidden');
-      });
+          if (userDoc.exists()) {
+            const userData = userDoc.data();
 
-      dropdownMenu.addEventListener('click', (e) => {
-        e.stopPropagation();
-      });
+            // Set user name
+            document.getElementById("fullName").textContent =
+              userData.name || "User";
+          }
+        } catch (error) {
+          console.error("Error loading user data:", error);
+        }
+      }
 
-      // Navigation
-      document.getElementById('dashboard').addEventListener('click', (e) => {
-        e.preventDefault();
-        window.location.href = `./dashboard.html?id=${userId}`;
-      });
+      // Initialize UI
+      function initUI() {
+        // Dropdown menu
+        const dropdownButton = document.getElementById("dropdownButton");
+        const dropdownMenu = document.getElementById("dropdownMenu");
 
-      // Sign out buttons
-      document.getElementById('signOutBtn').addEventListener('click', handleSignOut);
-      document.getElementById('dropdownSignOut').addEventListener('click', handleSignOut);
+        dropdownButton.addEventListener("click", (e) => {
+          e.stopPropagation();
+          dropdownMenu.classList.toggle("hidden");
+        });
 
-      // Transfer form
-      document.getElementById('transferForm').addEventListener('submit', handleTransfer);
-      
-      // Clear errors when typing
-      document.getElementById('recipientAccount').addEventListener('input', () => clearError('recipientAccount'));
-      document.getElementById('amount').addEventListener('input', () => clearError('amount'));
-    }
+        document.addEventListener("click", () => {
+          dropdownMenu.classList.add("hidden");
+        });
 
-    // Check auth state and load user data
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        if (user.uid !== userId) {
-          window.location.href = `./transfer.html?id=${user.uid}`;
+        dropdownMenu.addEventListener("click", (e) => {
+          e.stopPropagation();
+        });
+
+        // Navigation
+        document.getElementById("dashboard").addEventListener("click", (e) => {
+          e.preventDefault();
+          window.location.href = `./dashboard.html?id=${userId}`;
+        });
+
+        // Sign out buttons
+        document
+          .getElementById("signOutBtn")
+          .addEventListener("click", handleSignOut);
+        document
+          .getElementById("dropdownSignOut")
+          .addEventListener("click", handleSignOut);
+
+        // Transfer form
+        document
+          .getElementById("transferForm")
+          .addEventListener("submit", handleTransfer);
+
+        // Clear errors when typing
+        document
+          .getElementById("recipientAccount")
+          .addEventListener("input", () => clearError("recipientAccount"));
+        document
+          .getElementById("amount")
+          .addEventListener("input", () => clearError("amount"));
+      }
+
+      // Check auth state and load user data
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          if (user.uid !== userId) {
+            window.location.href = `./transfer.html?id=${user.uid}`;
+          } else {
+            await loadUserData();
+            initUI();
+          }
         } else {
-          await loadUserData();
-          initUI();
+          window.location.href = "./login.html";
         }
-      } else {
-        window.location.href = './login.html';
-      }
-    });
-  </script>
-</body>
+      });
+    </script>
+  </body>
 </html>
