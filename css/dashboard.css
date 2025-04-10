@@ -1,0 +1,14 @@
+/* Custom styles can be added here */
+body {
+    font-family: 'Helvetica', sans-serif;
+  }
+.signout{
+  border: thin solid grey;
+  width: 100px;
+  height: 50px;
+  border-radius: 9px;
+}
+.signout:hover{
+  /* color: red; */
+  border: thick solid grey;
+}

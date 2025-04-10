@@ -1,0 +1,225 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.nav-item{
+    margin-left: px;
+}
+.navbar-brand p{
+ padding-top: 15px ;
+ font-weight: 700;
+ color: rgb(46, 34, 34);
+}
+/* img{
+    width: 50px;
+    height: 50px;
+} */
+.section2{
+    background-image: url(/multimedia/images/homepage-hero-1x.jpg);
+    background-repeat: no-repeat;
+    /* width: 100%; */
+    /* padding: 80vh; */
+    /* justify-content: center; */
+    text-align: center;
+    color: white;
+    padding:300px 100px;
+}
+.section2 p{
+    font-size: 25px;
+}
+.section2 button{
+    width: 300px;
+    height: 60px;
+    border-radius: 9px;
+    background-color: blue;
+    border: none;
+
+}
+.business{
+    color: white;
+}
+.business p{
+    font-size: 15px;
+    /* color: white; */
+}
+.business a{
+    color: white;
+}
+section{
+    width: 100%;
+}
+.section3{
+    gap: 40px;
+    padding: 20px 80px;
+    text-align: center;
+}
+.section3 i{
+    padding: 50px 0px;
+}
+.section3 a{
+    border: thin solid blue;
+    padding: 15px 20px 15px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+.section4{
+    gap: 40px;
+    padding: 100px 100px;
+    text-align: center;
+    background-color: rgb(12, 12, 45);
+    margin-top: 40px;
+    color: aliceblue;
+    
+}
+.section4 a{
+    border: thin solid blue;
+    padding: 15px 20px 15px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+.section4 p{
+    font-size: 25px;
+}
+.section4 i{
+    padding-bottom: 20px;
+}
+.section5{
+    background-color: aliceblue;
+    color: black;
+    text-align: center;
+    padding:60px 100px ;
+}
+.section5 h4{
+    font-size: 25px;
+    padding-bottom: 40px;
+}
+.section5 .flex{
+    display: flex;
+    gap: 40px;
+    text-align: left;
+
+}
+.section5 .flex h6{
+    font-size: 16px;
+    
+}
+.section5 .flex p{
+    font-size: 14px;
+}
+.section5 .flex a{
+    font-size: 14px;
+    text-decoration: none;
+    color: blue;
+}
+.section5 .flex a:hover{
+    border-bottom: thin solid blue;
+}
+.section6{
+    background-color: rgb(76, 76, 247);
+    color: white;
+    text-align: center;
+    padding:60px 100px ;
+}
+.section6 p{
+    font-size: 25px;
+
+}
+.section6 button{
+    font-size: 18px;
+    border: thin solid rgb(19, 19, 221);
+    background-color: white;
+    width: 300px;
+    min-height: 65px;
+    border-radius: 70px;
+
+}
+.section6 button:hover{
+   /* border: thin solid rgb(2, 2, 128); */
+   /* font-size: 25px; */
+   font-weight: 500;
+   
+}
+.section7{
+    background-color: aliceblue;
+    color: black;
+    /* text-align: center; */
+    padding:60px 100px ;
+}
+.section7 .upflex{
+    display: flex;
+    gap: 70%;
+   
+}
+/* .section7 .upflex .flag{
+    margin-left: 500px; 
+} */
+.section7 .upflex .innerflex{
+    display: flex;
+    gap: 10px;
+}
+.section7 .upflex .innerflex a{
+    color: black;
+    text-decoration: none;
+}
+.section7 .upflex .innerflex a:hover{
+    border-bottom: thin solid black;
+}
+.section7 .downflex{
+    display: flex;
+    gap: 30%;
+}
+.section7 .downflex .innerflex{
+    display: flex;
+    gap: 10px;
+}
+.section7 .downflex .innerflex a{
+    color: black;
+    text-decoration: none;
+}
+.section7 .downflex .innerflex a:hover{
+    border-bottom: thin solid black;
+}
+
+@media (min-width:200px) and (max-width:1200px) {
+   
+    .section7 .upflex{
+         display: block;
+       
+       
+    }
+    /* .section7 .upflex .flag{
+        margin-left: 500px; 
+    } */
+    .section7 .upflex .innerflex{
+        display: block;
+        gap: 10px;
+    }
+    .section7 .upflex .innerflex a{
+        color: black;
+        text-decoration: none;
+    }
+    .section7 .upflex .innerflex a:hover{
+        border-bottom: thin solid black;
+    }
+    .section7 .downflex{
+        display: block;
+        gap: 30%;
+    }
+    .section7 .downflex .innerflex{
+        display: block;
+        gap: 10px;
+    }
+    .section7 .downflex .innerflex a{
+        color: black;
+        text-decoration: none;
+    }
+    .section7 .downflex .innerflex a:hover{
+        border-bottom: thin solid black;
+    }
+}
+span{
+font-weight: 100;
+font-size: 10px;
+padding-top: 20px;
+}

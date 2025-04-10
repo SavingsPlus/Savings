@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BankTide Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --primary-light: #dbeafe;
+      --secondary: #10b981;
+      --error: #dc2626;
+      --success: #16a34a;
+      --warning: #f59e0b;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --white: #ffffff;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--gray-50);
+      color: var(--gray-800);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Layout */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .flex {
+      display: flex;
+    }
+
+    .flex-col {
+      flex-direction: column;
+    }
+
+    .items-center {
+      align-items: center;
+    }
+
+    .justify-between {
+      justify-content: space-between;
+    }
+
+    .gap-3 {
+      gap: 0.75rem;
+    }
+
+    .gap-4 {
+      gap: 1rem;
+    }
+
+    .gap-6 {
+      gap: 1.5rem;
+    }
+
+    .py-3 {
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
+    }
+
+    .py-4 {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    .py-6 {
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
+    }
+
+    .px-4 {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    .px-6 {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
+    .mb-4 {
+      margin-bottom: 1rem;
+    }
+
+    .mb-6 {
+      margin-bottom: 1.5rem;
+    }
+
+    .mt-2 {
+      margin-top: 0.5rem;
+    }
+
+    .mt-4 {
+      margin-top: 1rem;
+    }
+
+    .mt-auto {
+      margin-top: auto;
+    }
+
+    /* Typography */
+    .text-sm {
+      font-size: 0.875rem;
+    }
+
+    .text-base {
+      font-size: 1rem;
+    }
+
+    .text-lg {
+      font-size: 1.125rem;
+    }
+
+    .text-xl {
+      font-size: 1.25rem;
+    }
+
+    .text-2xl {
+      font-size: 1.5rem;
+    }
+
+    .font-bold {
+      font-weight: 700;
+    }
+
+    .font-semibold {
+      font-weight: 600;
+    }
+
+    .font-medium {
+      font-weight: 500;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .text-gray-500 {
+      color: var(--gray-500);
+    }
+
+    .text-gray-600 {
+      color: var(--gray-600);
+    }
+
+    .text-gray-700 {
+      color: var(--gray-700);
+    }
+
+    .text-gray-800 {
+      color: var(--gray-800);
+    }
+
+    .text-white {
+      color: var(--white);
+    }
+
+    .text-blue-600 {
+      color: var(--primary);
+    }
+
+    .text-green-600 {
+      color: var(--success);
+    }
+
+    .text-red-600 {
+      color: var(--error);
+    }
+
+    /* Components */
+    .navbar {
+      background-color: var(--primary-dark);
+      color: var(--white);
+      padding: 1rem 0;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--white);
+    }
+
+    .avatar {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background-color: var(--white);
+      border-radius: 0.5rem;
+      box-shadow: var(--shadow-lg);
+      min-width: 12rem;
+      z-index: 50;
+      margin-top: 0.5rem;
+    }
+
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+
+    .dropdown-item {
+      display: block;
+      padding: 0.5rem 1rem;
+      color: var(--gray-700);
+      text-decoration: none;
+      font-size: 0.875rem;
+    }
+
+    .dropdown-item:hover {
+      background-color: var(--gray-100);
+    }
+
+    .divider {
+      height: 1px;
+      background-color: var(--gray-200);
+      margin: 0.25rem 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      font-weight: 500;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .btn-danger {
+      background-color: var(--error);
+      color: var(--white);
+    }
+
+    .btn-danger:hover {
+      background-color: #b91c1c;
+    }
+
+    .btn-outline {
+      background-color: var(--white);
+      border: 1px solid var(--gray-300);
+      color: var(--gray-700);
+    }
+
+    .btn-outline:hover {
+      background-color: var(--gray-50);
+    }
+
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid var(--gray-200);
+      background-color: var(--white);
+    }
+
+    .tab {
+      padding: 1rem;
+      color: var(--gray-600);
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+    }
+
+    .tab:hover {
+      color: var(--primary);
+    }
+
+    .tab.active {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: var(--primary);
+    }
+
+    .card {
+      background-color: var(--white);
+      border-radius: 0.5rem;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .card-body {
+      padding: 1.5rem;
+    }
+
+    .account-card {
+      background-color: var(--primary-light);
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .badge-primary {
+      background-color: var(--primary-light);
+      color: var(--primary-dark);
+    }
+
+    .badge-success {
+      background-color: #d1fae5;
+      color: #065f46;
+    }
+
+    .transaction-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .transaction-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1rem;
+    }
+
+    .transaction-icon.credit {
+      background-color: #d1fae5;
+      color: #065f46;
+    }
+
+    .transaction-icon.debit {
+      background-color: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .footer {
+      background-color: var(--white);
+      border-top: 1px solid var(--gray-200);
+      padding: 1rem 0;
+      margin-top: auto;
+    }
+
+    .footer-link {
+      color: var(--gray-600);
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+
+    .footer-link:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    /* Grid */
+    .grid {
+      display: grid;
+    }
+
+    .grid-cols-1 {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+
+    .grid-cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .gap-4 {
+      gap: 1rem;
+    }
+
+    /* Responsive */
+    @media (min-width: 768px) {
+      .md\:flex-row {
+        flex-direction: row;
+      }
+      
+      .md\:w-1\/2 {
+        width: 50%;
+      }
+      
+      .md\:px-4 {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .tabs {
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+      }
+      
+      .tab {
+        white-space: nowrap;
+      }
+      
+      .grid-cols-2 {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="min-h-screen flex flex-col">
+    <!-- Navbar -->
+    <header class="navbar">
+      <div class="container flex justify-between items-center">
+        <a href="#" class="logo">SavingsPlus</a>
+        <div class="flex items-center gap-3">
+          <span id="fullName" class="font-medium">Loading...</span>
+          <div class="dropdown">
+           
+            <div id="dropdownMenu" class="dropdown-menu">
+              <a href="#" class="dropdown-item">Profile</a>
+              <a href="#" class="dropdown-item">Settings</a>
+              <a href="#" class="dropdown-item">News</a>
+              <div class="divider"></div>
+              <a href="#" id="dropdownSignOut" class="dropdown-item">Sign out</a>
+            </div>
+          </div>
+          <button id="signOutBtn" class="btn btn-danger">Sign Out</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Tabs -->
+    <nav class="tabs">
+      <div class="container flex gap-6">
+        <a id="dash" href="#" class="tab active">Dashboard</a>
+        <a href="#" id="transferPage" class="tab">Transfers</a>
+        <a href="#" class="tab">Payments</a>
+        <a href="#" class="tab">Accounts</a>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container py-6 flex flex-col md:flex-row gap-6">
+      <!-- Left Panel -->
+      <div class="md:w-1/2">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="text-lg font-semibold">Account Summary</h2>
+          </div>
+          <div class="card-body">
+            <div class="account-card">
+              <div class="flex justify-between items-start">
+                <div>
+                  <p id="accountType" class="text-gray-600 font-medium">Loading...</p>
+                  <p id="balance" class="text-2xl font-bold mt-1">-</p>
+                  <p id="accountNumber" class="text-gray-500 text-sm mt-1">Account #: -</p>
+                </div>
+                <span id="accountBadge" class="badge badge-primary">Loading...</span>
+              </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="grid grid-cols-2 gap-4 mt-4">
+              <button id="transferPageBtn" class="btn btn-primary">
+                Transfer Money
+              </button>
+              <button class="btn btn-outline">
+                Pay Bills
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Panel: Transactions -->
+      <div class="md:w-1/2">
+        <div class="card">
+          <div class="card-header flex justify-between items-center">
+            <h2 class="text-lg font-semibold">Recent Transactions</h2>
+            <a href="#" class="text-blue-600 text-sm hover:underline">View All</a>
+          </div>
+          <div class="card-body">
+            <ul id="transactionsList" class="divide-y divide-gray-200">
+              <li class="py-4 text-center text-gray-500">Loading transactions...</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container flex flex-col md:flex-row justify-between items-center text-sm text-gray-600">
+        <div class="mb-2 md:mb-0">
+          <a href="#" class="footer-link">Home</a>
+          <a href="#" class="footer-link">Support</a>
+          <a href="#" class="footer-link">Privacy</a>
+        </div>
+        <div>&copy; <span id="currentYear">2025</span> SavingsPlus Inc.</div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Firebase Scripts -->
+  <script type="module">
+    // Firebase config
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { 
+      getAuth, 
+      onAuthStateChanged, 
+      signOut 
+    } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+    import { 
+      getFirestore, 
+      doc, 
+      getDoc,
+      collection,
+      query,
+      where,
+      getDocs,
+      orderBy,
+      limit,
+      onSnapshot
+    } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+  
+    const firebaseConfig = {
+      apiKey: "AIzaSyAk0NaEjSxHgR2OJ8WUoLFX4ubDzR1bae8",
+      authDomain: "bank-8dfaa.firebaseapp.com",
+      projectId: "bank-8dfaa",
+      storageBucket: "bank-8dfaa.firebasestorage.app",
+      messagingSenderId: "975346232295",
+      appId: "1:975346232295:web:f13201683ae4b23a846b42"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const userColRef = collection(db, "bankUsers");
+  
+    // Set current year
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+  
+    // Check URL for user ID
+    const searchParams = new URLSearchParams(window.location.search);
+    const userId = searchParams.get('id');
+  
+    if (!userId) {
+      window.location.href = './login.html';
+    }
+  
+    // Format currency
+    function formatCurrency(amount) {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 2
+      }).format(amount);
+    }
+  
+    // Load transactions for the logged-in user
+    function loadTransactions(userId) {
+      const transactionsList = document.getElementById('transactionsList');
+      transactionsList.innerHTML = '<li class="py-4 text-center text-gray-500">Loading transactions...</li>';
+  
+      try {
+        const transactionsRef = collection(db, "bankUsers", userId, "transactions");
+        const q = query(transactionsRef, orderBy("timestamp", "desc"), limit(5));
+        
+        // Real-time listener
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+          transactionsList.innerHTML = "";
+          
+          if (querySnapshot.empty) {
+            transactionsList.innerHTML = '<li class="py-4 text-center text-gray-500">No transactions found.</li>';
+            return;
+          }
+          
+          querySnapshot.forEach(doc => {
+            const txn = doc.data();
+            const li = document.createElement("li");
+            li.className = "transaction-item";
+            
+            li.innerHTML = `
+              <div class="flex items-center">
+                <div class="transaction-icon ${txn.type === 'credit' ? 'credit' : 'debit'}">
+                  ${txn.type === 'credit' ? '↑' : '↓'}
+                </div>
+                <div>
+                  <p class="font-medium">${txn.description}</p>
+                  <p class="text-gray-500 text-sm">${new Date(txn.timestamp?.seconds * 1000).toLocaleDateString()} • ${txn.account}</p>
+                </div>
+              </div>
+              <p class="${txn.type === 'credit' ? 'text-green-600' : 'text-red-600'} font-bold">
+                ${txn.type === 'credit' ? '+' : '-'}${formatCurrency(txn.amount)}
+              </p>
+            `;
+            transactionsList.appendChild(li);
+          });
+        }, (error) => {
+          console.error("Error loading transactions:", error);
+          transactionsList.innerHTML = '<li class="py-4 text-center text-red-600">Failed to load transactions.</li>';
+        });
+        
+        return unsubscribe;
+      } catch (err) {
+        console.error("Error setting up transaction listener:", err);
+        transactionsList.innerHTML = '<li class="py-4 text-center text-red-600">Failed to load transactions.</li>';
+      }
+    }
+  
+    // Load user data
+    async function loadUserData() {
+      try {
+        // Get user document
+        const userDocRef = doc(userColRef, userId);
+        const userDoc = await getDoc(userDocRef);
+  
+        if (!userDoc.exists()) {
+          throw new Error("User account not found");
+        }
+  
+        const userData = userDoc.data();
+        
+        // Update profile information
+        document.getElementById('fullName').textContent = userData.name || "User";
+        
+        // Update account information
+        document.getElementById('accountType').textContent = `${userData.accountType?.toUpperCase() || 'CHECKING'} ACCOUNT`;
+        document.getElementById('balance').textContent = formatCurrency(userData.accountBalance || 0);
+        document.getElementById('accountNumber').textContent = `Account #: ${userData.accountNumber || '•••• •••• ••••'}`;
+        
+        // Set account badge based on type
+        const badgeElement = document.getElementById('accountBadge');
+        if (userData.accountType?.toLowerCase().includes('savings')) {
+          badgeElement.className = "badge badge-success";
+          badgeElement.textContent = "High Interest";
+        } else {
+          badgeElement.className = "badge badge-primary";
+          badgeElement.textContent = "Primary";
+        }
+  
+        // Load transactions
+        return loadTransactions(userId);
+        
+      } catch (error) {
+        console.error("Error loading user data:", error);
+        alert("Error loading account information. Please try again later.");
+        window.location.href = './login.html';
+      }
+    }
+  
+    // Handle sign out
+    async function handleSignOut() {
+      try {
+        await signOut(auth);
+        window.location.href = './login.html';
+      } catch (error) {
+        console.error("Sign out error:", error);
+        alert("Error signing out. Please try again.");
+      }
+    }
+  
+    // Initialize UI interactions
+    function initUI() {
+      const dropdownButton = document.getElementById('dropdownButton');
+      const dropdownMenu = document.getElementById('dropdownMenu');
+      
+      // Toggle dropdown menu
+      dropdownButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdownMenu.classList.toggle('hidden');
+      });
+  
+      // Close dropdown when clicking outside
+      document.addEventListener('click', () => {
+        dropdownMenu.classList.add('hidden');
+      });
+  
+      // Prevent dropdown from closing when clicking inside
+      dropdownMenu.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+  
+      // Set up sign out buttons
+      document.getElementById('signOutBtn').addEventListener('click', handleSignOut);
+      document.getElementById('dropdownSignOut').addEventListener('click', handleSignOut);
+  
+      // Set up transfer page navigation
+      document.getElementById('transferPage').addEventListener('click', (e) => {
+        e.preventDefault();
+        window.location.href = `./transfer.html?id=${userId}`;
+      });
+      
+      document.getElementById('transferPageBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        window.location.href = `./transfer.html?id=${userId}`;
+      });
+    }
+  
+    // Check auth state
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // Verify URL matches logged in user
+        if (user.uid !== userId) {
+          window.location.href = `./dashboard.html?id=${user.uid}`;
+        } else {
+          loadUserData();
+          initUI();
+        }
+      } else {
+        window.location.href = './login.html';
+      }
+    });
+  </script>
+</body>
+</html>
