@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BankTide Dashboard</title>
+  <title>SavingsPlus Dashboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -224,6 +224,10 @@
       position: relative;
     }
 
+    .border{
+      border-radius: 50%;
+      background-color: var(--primary);
+    }
     .dropdown-menu {
       display: none;
       position: absolute;
@@ -478,7 +482,9 @@
         <div class="flex items-center gap-3">
           <span id="fullName" class="font-medium">Loading...</span>
           <div class="dropdown">
-           
+            <button id="dropdownButton" class="border">
+              <img id="userAvatar" class="avatar" src="../multimedia/images/TIMZ_C.png" />
+            </button>
             <div id="dropdownMenu" class="dropdown-menu">
               <a href="#" class="dropdown-item">Profile</a>
               <a href="#" class="dropdown-item">Settings</a>
@@ -585,12 +591,7 @@
       limit,
       onSnapshot
     } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
-    import { 
-      getStorage,
-      ref,
-      getDownloadURL
-    } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js";
-
+  
     const firebaseConfig = {
       apiKey: "AIzaSyAk0NaEjSxHgR2OJ8WUoLFX4ubDzR1bae8",
       authDomain: "bank-8dfaa.firebaseapp.com",
@@ -599,25 +600,24 @@
       messagingSenderId: "975346232295",
       appId: "1:975346232295:web:f13201683ae4b23a846b42"
     };
-
+  
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
-    const storage = getStorage(app);
     const userColRef = collection(db, "bankUsers");
-
+  
     // Set current year
     document.getElementById('currentYear').textContent = new Date().getFullYear();
-
+  
     // Check URL for user ID
     const searchParams = new URLSearchParams(window.location.search);
     const userId = searchParams.get('id');
-
+  
     if (!userId) {
       window.location.href = './login.html';
     }
-
+  
     // Format currency
     function formatCurrency(amount) {
       return new Intl.NumberFormat('en-US', {
@@ -626,12 +626,12 @@
         minimumFractionDigits: 2
       }).format(amount);
     }
-
+  
     // Load transactions for the logged-in user
     function loadTransactions(userId) {
       const transactionsList = document.getElementById('transactionsList');
       transactionsList.innerHTML = '<li class="py-4 text-center text-gray-500">Loading transactions...</li>';
-
+  
       try {
         const transactionsRef = collection(db, "bankUsers", userId, "transactions");
         const q = query(transactionsRef, orderBy("timestamp", "desc"), limit(5));
@@ -677,18 +677,18 @@
         transactionsList.innerHTML = '<li class="py-4 text-center text-red-600">Failed to load transactions.</li>';
       }
     }
-
+  
     // Load user data
     async function loadUserData() {
       try {
         // Get user document
         const userDocRef = doc(userColRef, userId);
         const userDoc = await getDoc(userDocRef);
-
+  
         if (!userDoc.exists()) {
           throw new Error("User account not found");
         }
-
+  
         const userData = userDoc.data();
         
         // Update profile information
@@ -708,7 +708,7 @@
           badgeElement.className = "badge badge-primary";
           badgeElement.textContent = "Primary";
         }
-
+  
         // Load transactions
         return loadTransactions(userId);
         
@@ -718,7 +718,7 @@
         window.location.href = './login.html';
       }
     }
-
+  
     // Handle sign out
     async function handleSignOut() {
       try {
@@ -729,7 +729,7 @@
         alert("Error signing out. Please try again.");
       }
     }
-
+  
     // Initialize UI interactions
     function initUI() {
       const dropdownButton = document.getElementById('dropdownButton');
@@ -740,43 +740,33 @@
         e.stopPropagation();
         dropdownMenu.classList.toggle('hidden');
       });
-
+  
       // Close dropdown when clicking outside
       document.addEventListener('click', () => {
         dropdownMenu.classList.add('hidden');
       });
-
+  
       // Prevent dropdown from closing when clicking inside
       dropdownMenu.addEventListener('click', (e) => {
         e.stopPropagation();
       });
-
+  
       // Set up sign out buttons
       document.getElementById('signOutBtn').addEventListener('click', handleSignOut);
       document.getElementById('dropdownSignOut').addEventListener('click', handleSignOut);
-
+  
       // Set up transfer page navigation
-      const transferLinks = [
-        document.getElementById('transferPage'),
-        document.getElementById('transferPageBtn')
-      ];
-      
-      transferLinks.forEach(link => {
-        if (link) {
-          link.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.location.href = `./transfer.html?id=${userId}`;
-          });
-        }
-      });
-
-      // Set up dashboard link
-      document.getElementById('dash').addEventListener('click', (e) => {
+      document.getElementById('transferPage').addEventListener('click', (e) => {
         e.preventDefault();
-        window.location.href = `./dashboard.html?id=${userId}`;
+        window.location.href = `./transfer.html?id=${userId}`;
+      });
+      
+      document.getElementById('transferPageBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        window.location.href = `./transfer.html?id=${userId}`;
       });
     }
-
+  
     // Check auth state
     onAuthStateChanged(auth, (user) => {
       if (user) {
