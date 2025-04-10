@@ -1,148 +1,504 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="./css/index.css">
 
-    <title>Document</title>
-  </head>
-  <body>
-    <section class="">
-      <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#"><p>BankTide</p></a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Personal
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">How to BankTide works</a></li>
-                  <li><a class="dropdown-item" href="#">Send payments</a></li>
-                  <li>
-                    <a class="dropdown-item" href="#">Read terms and condition</a>
-                  </li>
-                </ul>
-              </li>
-              
-            </ul>
-            <div>
-                <button class="btn btn-outline-primary" type="loginIn" id="login">
-                    Login
-                  </button>
-                  <button class="btn btn-primary" type="SignUP" id="signup">
-                    Sign Up
-                  </button>
-            </div>
-            </form>
-          </div>
-        </div>
-      </nav>
-    </section>
-    <section class="section2">
-       <div>
-        <p>The simpler, safer way to pay online.</p>
-        <button class="btn btn-primary" id="signUpFree">Sign Up for Free</button>
-       </div><br>
-       <div class="business">
-        <p>Own a business?<a href=""> Open a Business account.</a></p>
-       </div>
-    </section>
-    <section class="section3">
-        <h4>BankTide is for everyone who pays online.</h4>
-        <i class="fa-solid fa-user fa-2xl" ></i>
-        <h5>Individuals</h5>
-        <p>Find out why we have more than 200M active accounts worldwide.</p>
-        <a href="">Learn More</a>
-    </section>
-    <section class="section4">
-        <i class="fa-solid fa-link fa-2xl"></i>
-        <p>BankTide connects buyers and sellers.</p>
-        <a href="">Learn More</a>
+<!DOCTYPE html>  
+<html lang="en">  
+  <head>  
+    <meta charset="UTF-8" />  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />  
+    <title>SavingsPlus - Modern Banking</title>  
+    <style>  
+      /* Base Styles */  
+      :root {  
+        --primary: #2563eb;  
+        --primary-dark: #1d4ed8;  
+        --secondary: #f8fafc;  
+        --text: #1e293b;  
+        --text-light: #64748b;  
+        --white: #ffffff;  
+        --border: #e2e8f0;  
+        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);  
+      }  
+      
+      * {  
+        margin: 0;  
+        padding: 0;  
+        box-sizing: border-box;  
+      }  
+      
+      body {  
+        font-family: 'font-family: 'Inter', sans-serif';  
+        color: var(--text);  
+        line-height: 1.5;  
+      }  
+      
+      a {  
+        text-decoration: none;  
+        color: inherit;  
+      }  
+      
+      img {  
+        max-width: 100%;  
+      }  
+      
+      .container {  
+        width: 100%;  
+        max-width: 1200px;  
+        margin: 0 auto;  
+        padding: 0 1rem;  
+      }  
+      
+      .btn {  
+        display: inline-block;  
+        padding: 0.75rem 1.5rem;  
+        border-radius: 0.375rem;  
+        font-weight: 500;  
+        cursor: pointer;  
+        transition: all 0.2s ease;  
+        border: none;  
+      }  
+      
+      .btn-primary {  
+        background-color: var(--primary);  
+        color: var(--white);  
+      }  
+      
+      .btn-primary:hover {  
+        background-color: var(--primary-dark);  
+      }  
+      
+      .btn-outline {  
+        background-color: transparent;  
+        border: 1px solid var(--primary);  
+        color: var(--primary);  
+      }  
+      
+      .btn-outline:hover {  
+        background-color: var(--primary);  
+        color: var(--white);  
+      }  
+      
+      /* Header */  
+      header {  
+        background-color: var(--white);  
+        box-shadow: var(--shadow);  
+        position: sticky;  
+        top: 0;  
+        z-index: 100;  
+      }  
+      
+      .navbar {  
+        display: flex;  
+        justify-content: space-between;  
+        align-items: center;  
+        padding: 1rem 2rem;  
+      }  
+      
+      .logo {  
+        font-size: 1.5rem;  
+        font-weight: 700;  
+        color: var(--primary);  
+      }  
+      
+      .nav-links {  
+        display: flex;  
+        gap: 2rem;  
+      }  
+      
+      .nav-item {  
+        position: relative;  
+        padding: 0.5rem 0;  
+      }  
+      
+      .dropdown {  
+        position: absolute;  
+        top: 100%;  
+        left: 0;  
+        background-color: var(--white);  
+        border-radius: 0.375rem;  
+        box-shadow: var(--shadow);  
+        min-width: 200px;  
+        opacity: 0;  
+        visibility: hidden;  
+        transition: all 0.2s ease;  
+      }  
+      
+      .nav-item:hover .dropdown {  
+        opacity: 1;  
+        visibility: visible;  
+      }  
+      
+      .dropdown-item {  
+        display: block;  
+        padding: 0.75rem 1rem;  
+        color: var(--text-light);  
+      }  
+      
+      .dropdown-item:hover {  
+        color: var(--primary);  
+        background-color: var(--secondary);  
+      }  
+      
+      .auth-buttons {  
+        display: flex;  
+        gap: 1rem;  
+      }  
+      
+      .mobile-menu-btn {  
+        display: none;  
+        background: none;  
+        border: none;  
+        font-size: 1.5rem;  
+        color: var(--text);  
+        cursor: pointer;  
+      }  
+      
+      /* Hero Section */  
+      .hero {  
+        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);  
+        color: var(--white);  
+        padding: 6rem 0;  
+        text-align: center;  
+      }  
+      
+      .hero h1 {  
+        font-size: 3rem;  
+        margin-bottom: 1.5rem;  
+        font-weight: 700;  
+      }  
+      
+      .hero p {  
+        font-size: 1.25rem;  
+        max-width: 600px;  
+        margin: 0 auto 2rem;  
+      }  
+      
+      .business-link {  
+        margin-top: 2rem;  
+        color: var(--white);  
+      }  
+      
+      .business-link a {  
+        text-decoration: underline;  
+      }  
+      
+      /* Features Section */  
+      .features {  
+        padding: 5rem 0;  
+      }  
+      
+      .section-title {  
+        text-align: center;  
+        font-size: 2rem;  
+        margin-bottom: 3rem;  
+      }  
+      
+      .features-grid {  
+        display: grid;  
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));  
+        gap: 2rem;  
+      }  
+      
+      .feature-card {  
+        background-color: var(--white);  
+        border-radius: 0.5rem;  
+        padding: 2rem;  
+        text-align: center;  
+        box-shadow: var(--shadow);  
+        transition: transform 0.2s ease;  
+      }  
+      
+      .feature-card:hover {  
+        transform: translateY(-5px);  
+      }  
+      
+      .feature-icon {  
+        font-size: 3rem;  
+        color: var(--primary);  
+        margin-bottom: 1.5rem;  
+      }  
+      
+      .feature-title {  
+        font-size: 1.25rem;  
+        margin-bottom: 1rem;  
+      }  
+      
+      .feature-text {  
+        color: var(--text-light);  
+        margin-bottom: 1.5rem;  
+      }  
+      
+      .learn-more {  
+        color: var(--primary);  
+        font-weight: 500;  
+      }  
+      
+      /* Benefits Section */  
+      .benefits {  
+        background-color: var(--secondary);  
+        padding: 5rem 0;  
+      }  
+      
+      .benefits-container {  
+        max-width: 1000px;  
+        margin: 0 auto;  
+      }  
+      
+      .benefits-grid {  
+        display: grid;  
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));  
+        gap: 2rem;  
+      }  
+      
+      .benefit-card {  
+        background-color: var(--white);  
+        border-radius: 0.5rem;  
+        padding: 2rem;  
+        box-shadow: var(--shadow);  
+      }  
+      
+      .benefit-title {  
+        font-size: 1.25rem;  
+        margin-bottom: 1rem;  
+        color: var(--primary);  
+      }  
+      
+      /* CTA Section */  
+      .cta {  
+        text-align: center;  
+        padding: 4rem 0;  
+      }  
+      
+      .cta-title {  
+        font-size: 2rem;  
+        margin-bottom: 2rem;  
+      }  
+      
+      /* Footer */  
+      footer {  
+        background-color: var(--text);  
+        color: var(--white);  
+        padding: 3rem 0 1rem;  
+      }  
+      
+      .footer-links {  
+        display: flex;  
+        flex-wrap: wrap;  
+        justify-content: space-between;  
+        margin-bottom: 2rem;  
+      }  
+      
+      .footer-column {  
+        flex: 1;  
+        min-width: 150px;  
+        margin-bottom: 1.5rem;  
+      }  
+      
+      .footer-column h5 {  
+        margin-bottom: 1rem;  
+        font-size: 1rem;  
+      }  
+      
+      .footer-column a {  
+        display: block;  
+        margin-bottom: 0.5rem;  
+        color: var(--border);  
+      }  
+      
+      .footer-column a:hover {  
+        color: var(--white);  
+      }  
+      
+      .footer-bottom {  
+        display: flex;  
+        flex-wrap: wrap;  
+        justify-content: space-between;  
+        align-items: center;  
+        padding-top: 1.5rem;  
+        border-top: 1px solid rgba(255, 255, 255, 0.1);  
+      }  
+      
+      .footer-legal {  
+        display: flex;  
+        gap: 1rem;  
+        flex-wrap: wrap;  
+      }  
+      
+      .footer-disclaimer {  
+        margin-top: 1rem;  
+        font-size: 0.875rem;  
+        color: var(--border);  
+        width: 100%;  
+      }  
+      
+      /* Responsive Styles */  
+      @media (max-width: 768px) {  
+        .navbar {  
+          padding: 1rem;  
+        }  
+        
+        .nav-links {  
+          display: none;  
+        }  
+        
+        .mobile-menu-btn {  
+          display: block;  
+        }  
+        
+        .auth-buttons {  
+          display: none;  
+        }  
+        
+        .hero h1 {  
+          font-size: 2.5rem;  
+        }  
+        
+        .features-grid, .benefits-grid {  
+          grid-template-columns: 1fr;  
+        }  
+      }  
+    </style>  
+  </head>  
+  <body>  
+    <header>  
+      <nav class="navbar container">  
+        <a href="#" class="logo">SavingsPlus</a>  
+        
+        <div class="nav-links">  
+          <div class="nav-item">  
+            <a href="#">Personal <i class="fas fa-chevron-down"></i></a>  
+            <div class="dropdown">  
+              <a href="#" class="dropdown-item">How SavingsPlus works</a>  
+              <a href="#" class="dropdown-item">Send payments</a>  
+              <a href="#" class="dropdown-item">Terms and conditions</a>  
+            </div>  
+          </div>  
+          <div class="nav-item">  
+            <a href="#">Business</a>  
+          </div>  
+        </div>  
+        
+        <div class="auth-buttons">  
+          <button class="btn btn-outline" id="login">Login</button>  
+          <button class="btn btn-primary" id="signup">Sign Up</button>  
+        </div>  
+        
+        <button class="mobile-menu-btn">  
+          <i class="fas fa-bars"></i>  
+        </button>  
+      </nav>  
+    </header>  
+    
+    <section class="hero">  
+      <div class="container">  
+        <h1>The simpler, safer way to bank online</h1>  
+        <p>Join millions who trust SavingsPlus for secure digital banking</p>  
+        <button class="btn btn-primary" style="background-color: var(--white); color: var(--primary);" id="signUpFree">Sign Up for Free</button>   
+      </div>  
+    </section>  
+    
+    <section class="features container">  
+      <h2 class="section-title">SavingsPlus is for everyone</h2>  
+      
+      <div class="features-grid">  
+        <div class="feature-card">  
+          <div class="feature-icon">  
+            <i class="fas fa-user"></i>  
+          </div>  
+          <h3 class="feature-title">Individuals</h3>  
+          <p class="feature-text">Find out why we have more than 200M active accounts worldwide.</p>  
+          <a href="#" class="learn-more">Learn More →</a>  
+        </div>  
+        
+        <div class="feature-card">  
+          <div class="feature-icon">  
+            <i class="fas fa-link"></i>  
+          </div>  
+          <h3 class="feature-title">Businesses</h3>  
+          <p class="feature-text">SavingsPlus connects buyers and sellers with secure transactions.</p>  
+          <a href="#" class="learn-more">Learn More →</a>  
+        </div>  
+      </div>  
+    </section>  
+    
+    <section class="benefits">  
+      <div class="benefits-container container">  
+        <h2 class="section-title">Join 200M active SavingsPlus accounts worldwide</h2>  
+        
+        <div class="benefits-grid">  
+          <div class="benefit-card">  
+            <h3 class="benefit-title">Safer and protected</h3>  
+            <p>Shop with peace of mind. We don't share your full financial information with sellers. And SavingsPlus Buyer Protection covers your eligible purchases if they don't show up or match their description.</p>  
+            <a href="#" class="learn-more">More about security →</a>  
+          </div>  
+        </div>  
+      </div>  
+    </section>  
+    
+    <section class="cta container">  
+      <h2 class="cta-title" >Sign up to get started</h2>  
+      <button class="btn btn-primary" id="getStarted">Get Started</button>  
+    </section>  
+    
+    <footer>  
+      <div class="container">  
+        <div class="footer-links">  
+          <div class="footer-column">  
+            <h5>Help</h5>  
+            <a href="#">Help Center</a>  
+            <a href="#">Contact Us</a>  
+            <a href="#">Fees</a>  
+            <a href="#">Security</a>  
+          </div>  
+          
+          <div class="footer-column">  
+            <h5>Features</h5>  
+            <a href="#">Send Money</a>  
+            <a href="#">Request Money</a>  
+            <a href="#">Shop</a>  
+            <a href="#">Rewards</a>  
+          </div>  
+          
+          <div class="footer-column">  
+            <h5>Company</h5>  
+            <a href="#">About</a>  
+            <a href="#">Newsroom</a>  
+            <a href="#">Jobs</a>  
+            <a href="#">Developers</a>  
+          </div>  
+          
+          <div class="footer-column">  
+            <h5>Legal</h5>  
+            <a href="#">Privacy</a>  
+            <a href="#">Cookies</a>  
+            <a href="#">Accessibility</a>  
+            <a href="#">Legal</a>  
+          </div>  
+        </div>  
+        
+        <div class="footer-bottom">  
+          <p>© 1999–2025 SavingsPlus. All rights reserved.</p>  
+          <div class="footer-legal">  
+            <span>🇳🇬 Nigeria</span>  
+          </div>   
+        </div>  
+      </div>  
+    </footer>  
+    
+    <script>
+      document.getElementById('signup').addEventListener('click', goToSignUpPage);
+    document.getElementById('getStarted').addEventListener('click', goToSignUpPage);
+    document.getElementById('signUpFree').addEventListener('click', goToSignUpPage);
+    document.getElementById('login').addEventListener('click', goTologinPage);
 
-    </section>
-    <section class="section5">
-        <h4>Join 200M active BankTide accounts worldwide.</h4>
-        <div class="flex">
-            <div>
-                <h6>Safer and protected</h6>
-                <p>Shop with peace of mind. We don’t share your full financial information with sellers. <br>And PayPal Buyer Protection covers your eligible purchases if they don’t show up or match their description.</p>
-                <a href=""> More about security</a>
-            </div>
-            <div>
-                <h6>Mostly free, always upfront</h6>
-                <p>It’s free to open a PayPal account and buy something using PayPal unless it involves a currency conversion.</p>
-                <a href=""> More about fees</a>
-            </div>
-        </div>
-    </section>
-    <section class="section6">
-        <p>Sign up to get started</p>
-        <button id="getStarted">Get Started</button>
-    </section>
-    <section class="section7">
-        <div class="upflex">
-            <div class="innerflex">
-                <a href="">Help</a>
-                <a href="">Contact</a>
-                <a href="">Fee</a>
-                <a href="">Security</a>
-                <a href="">Features</a>
-                <a href="">Shop</a>
-            </div>
-            <div class="flag">🇳🇬</div>
-        </div>
-        <hr>
-        <div class="downflex">
-            <div class="innerflex">
-                <a href="">About</a>
-                <a href="">Newsroom</a>
-                <a href="">Jobs</a>
-                <a href="">Developers</a>
-            </div>
-            <div class="innerflex"> 
-                <p>© 1999–2025 All rights reserved.</p>
-                <a href="">Accessibility</a>
-                <a href="">Cookies</a>
-                <a href="">Privacy</a>
-                <a href="">Legal</a>
-            </div>
-        </div>
-        <span>Commercelexus Pte. Ltd. is licensed by the Monetary Authority of Nigeria as a Major Payment Institution under the Payment Services Act 2019.</span>
-    </section>
+    function goToSignUpPage(){
+        console.log('ive been clicked');
+        location.href = "./htmls/signup.html" 
+    }
+    function goTologinPage(){
+        console.log('ive been clicked');
+        location.href = "./htmls/login.html" 
+    }
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
-    <script src="./javascripts/index.js"></script>
-  </body>
-</html>
+    </script>
+  </body>  
+</html>  
